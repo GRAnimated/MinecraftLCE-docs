@@ -84,7 +84,7 @@ def create_progress_bar(progress_percentage, matching_count, major_mismatch_coun
     logo_padding = 150
     padding_y=30
 
-    width = 750
+    width = 830
     height = 300
 
     total_width = width + 2 * padding_x
