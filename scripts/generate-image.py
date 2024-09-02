@@ -213,7 +213,7 @@ def main():
     decompiled_size = round((progress_data['matching_code_size'] + progress_data['equivalent_code_size'] + progress_data['non_matching_code_size']) / 1000, 2)  # Assuming non_matching_count as minor mismatch
     code_size_total = int(progress_data['code_size_total'] / 1000)
     
-    progress_percentage = (matching_count / total_count) * 100
+    progress_percentage = ((matching_count + minor_mismatch_count + major_mismatch_count) / total_count) * 100
     rounded_percentage = round(progress_percentage, 3)
 
     create_progress_bar(rounded_percentage, matching_count, major_mismatch_count, minor_mismatch_count, total_count, decompiled_size, code_size_total)
