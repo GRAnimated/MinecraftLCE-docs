@@ -1,9 +1,11 @@
 import csv
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 from datetime import datetime
+import os
+import random
 
-def get_panorama_path():
-    return "resources/panoramas/Panorama_Background_S.png"  # Hardcoded until more are exported from the game
+def get_panoramas_path():
+    return "resources/panoramas/"  # Hardcoded until more are exported from the game
 
 def get_logo_path():
     return "resources/mc-lce-decomp-logo.png"
@@ -42,7 +44,26 @@ def read_progress_data(file_path):
             }
 
 def draw_background(total_width, total_height):
-    background = Image.open(get_panorama_path())
+    panoramas_path = get_panoramas_path()
+    panoramas_list = os.listdir(panoramas_path)
+
+    previous_panorama_file = 'resources/previously-picked-panorama.txt'
+
+    if os.path.exists(previous_panorama_file):
+        with open(previous_panorama_file, 'r') as file:
+            previous_panorama = file.read().strip()
+        
+        if previous_panorama in panoramas_list:
+            panoramas_list.remove(previous_panorama)
+    
+    new_panorama = random.choice(panoramas_list)
+    
+    with open(previous_panorama_file, 'w') as file:
+        file.write(new_panorama)
+
+    panorama = os.path.join(panoramas_path, new_panorama)
+    background = Image.open(panorama)
+
     orig_width, orig_height = background.size
 
     original_aspect = orig_width / orig_height
