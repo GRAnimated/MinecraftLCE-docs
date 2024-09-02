@@ -124,17 +124,12 @@ def create_progress_bar(progress_percentage, matching_count, major_mismatch_coun
     rect_x1 = total_width - padding_x - 50
     rect_y1 = int(height * .13) + padding_y + logo_padding
 
-    # Inner progress bar fill
+    # progress bar fill
     draw.rectangle(
         [rect_x0, rect_y0, rect_x1, rect_y1],
-        fill=(162, 162, 162, 255)
-    )
-
-    # Outer progress bar fill
-    draw.rectangle(
-        [rect_x0, rect_y0, rect_x1, rect_y1],
+        fill=(162, 162, 162, 255),
         outline=(100, 100, 100, 255),
-        width=3
+        width=3,
     )
 
     # Calculate the fill widths
@@ -149,7 +144,7 @@ def create_progress_bar(progress_percentage, matching_count, major_mismatch_coun
     draw.rectangle(
         [rect_x0 + 5, rect_y0 + 5,
          rect_x0 + 5 + matching_fill_width, rect_y1 - 5],
-        fill=(38, 213, 34, 255)  # Green
+        fill=(38, 213, 34, 255),  # Green
     )
     
     draw.rectangle(
@@ -171,19 +166,13 @@ def create_progress_bar(progress_percentage, matching_count, major_mismatch_coun
     text_area_y0 = rect_y1 + 15
     text_area_y1 = total_height - padding_y
 
-    # Inner tooltip fill
+    # tooltip fill and outline
     draw.rounded_rectangle(
         [padding_x, text_area_y0, total_width - padding_x, text_area_y1],
         fill=(85, 110, 110, 225),
-        radius=3
-    )
-
-    # Outer tooltip fill
-    draw.rounded_rectangle(
-        [padding_x, text_area_y0, total_width - padding_x, text_area_y1],
         outline=(255, 255, 255, 255),
-        width=int(2),
-        radius=3
+        width=2,
+        radius=4
     )
 
     details_text = (f"{datetime.today().strftime('%m/%d/%Y')} | "
