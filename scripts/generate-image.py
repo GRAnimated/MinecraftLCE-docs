@@ -45,7 +45,7 @@ def read_progress_data(file_path):
 
 def draw_background(total_width, total_height):
     panoramas_path = get_panoramas_path()
-    panoramas_list = os.listdir(panoramas_path)
+    panoramas_list = [file for file in os.listdir(panoramas_path) if file.endswith('.png')]
 
     previous_panorama_file = 'resources/previously-picked-panorama.txt'
 
@@ -62,7 +62,7 @@ def draw_background(total_width, total_height):
         file.write(new_panorama)
 
     panorama = os.path.join(panoramas_path, new_panorama)
-    background = Image.open(panorama)
+    background = Image.open(panorama).convert("RGBA")
 
     orig_width, orig_height = background.size
 
@@ -84,7 +84,7 @@ def draw_background(total_width, total_height):
     bottom = (new_height + total_height) / 2
 
     background = background.crop((left, top, right, bottom))
-    background = background.filter(ImageFilter.GaussianBlur(radius=5))
+    background = background.filter(ImageFilter.GaussianBlur(radius=2))
 
     return background
 
