@@ -91,9 +91,9 @@ def draw_logo(total_width, total_height):
     logo = Image.open(get_logo_path()).convert("RGBA")
     logo_width, logo_height = logo.size
 
-    size = 600
+    size = 650
 
-    logo = logo.resize((size, int(size * logo_height/logo_width)), Image.LANCZOS)
+    logo = logo.resize((size, int(size * logo_height/logo_width)), Image.BOX)
 
     logo_x = (total_width - size) // 2
     logo_y = 30
@@ -114,9 +114,6 @@ def create_progress_bar(progress_percentage, matching_count, major_mismatch_coun
 
     image = Image.new("RGBA", (total_width, total_height), (255, 255, 255, 0))
     draw = ImageDraw.Draw(image)
-
-    logo, logo_x, logo_y = draw_logo(total_width, total_height)
-    image.paste(logo, (logo_x, logo_y), logo)
 
     rect_x0 = padding_x + 50
     rect_y0 = padding_y + logo_padding
@@ -182,6 +179,13 @@ def create_progress_bar(progress_percentage, matching_count, major_mismatch_coun
     detail_text_x = (total_width - (detail_text_bbox[2] - detail_text_bbox[0])) // 2
     detail_text_y = text_area_y0 + (text_area_y1 - text_area_y0) // 2 - (detail_text_bbox[3] - detail_text_bbox[1]) // 2
     draw.text((detail_text_x, detail_text_y), details_text, fill="white", stroke_width=1, stroke_fill="black", font=font)
+
+    logo, logo_x, logo_y = draw_logo(total_width, total_height)
+
+    temp_image = Image.new("RGBA", image.size)
+    temp_image.paste(logo, (logo_x, logo_y), logo)
+
+    image = Image.alpha_composite(image, temp_image)
 
     # Save the image
     image = image.resize((total_width, total_height))
