@@ -171,7 +171,7 @@ def create_progress_bar(progress_percentage, matching_count, major_mismatch_coun
         radius=4
     )
 
-    details_text = (f"{matching_count} matched, {major_mismatch_count + minor_mismatch_count} mismatched functions | {decompiled_size}/{code_size_total} kB")
+    details_text = (f"{matching_count} matching, {major_mismatch_count + minor_mismatch_count} mismatching functions | {decompiled_size}/{code_size_total} kB")
     
     font = ImageFont.truetype(get_font_path(), 20)
 
